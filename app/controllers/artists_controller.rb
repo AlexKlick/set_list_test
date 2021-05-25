@@ -8,14 +8,15 @@ class ArtistsController < ApplicationController
   end
 
   def new
+
   end
 
   def create
-    artist = Artist.create(artist_params)
-    if artist.id != nil
+    @artist = Artist.new(artist_params)
+    if @artist.save
       redirect_to '/artists'
     else
-      flash[:alert] = artist.errors.full_messages.to_sentence
+      flash[:alert] = @artist.errors.full_messages.to_sentence
       render :new
     end
   end
