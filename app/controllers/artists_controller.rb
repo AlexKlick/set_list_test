@@ -11,8 +11,17 @@ class ArtistsController < ApplicationController
   end
 
   def create
-    Artist.create(artist_params)
-    redirect_to '/artists'
+    artist = Artist.create(artist_params)
+    binding.pry
+    if artist.id != nil
+      redirect_to '/artists'
+    elsif artist.errors[:name] == "can't be blank"
+      flash[:notice] = "Need a name!"
+      render :new
+    else
+      flash[:notice] = "Name needs to be 5 chars!"
+      render :new
+    end
   end
 
   def destroy

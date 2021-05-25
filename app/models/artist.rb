@@ -4,4 +4,6 @@ class Artist < ApplicationRecord
   def average_song_length
     songs.average(:length)
   end
+
+  validates :name, presence: true, length: {minimum: 5}
 end
