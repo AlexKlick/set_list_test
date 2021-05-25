@@ -14,11 +14,8 @@ class ArtistsController < ApplicationController
     artist = Artist.create(artist_params)
     if artist.id != nil
       redirect_to '/artists'
-    elsif artist.errors[:name][0] == "can't be blank"
-      flash[:notice] = "Needs a name!"
-      render :new
     else
-      flash[:notice] = "Name needs to be 5 chars!"
+      flash[:alert] = artist.errors.full_messages.to_sentence
       render :new
     end
   end
